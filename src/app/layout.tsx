@@ -1,6 +1,12 @@
+import { CustomClerkProvider } from "@/components/clerk-provider";
 import { TRPCProvider } from "@/components/trpc-provider";
-import { ClerkProvider } from "@clerk/nextjs";
 import { type Metadata } from "next";
+import { Inter } from "next/font/google";
+import "@/styles/globals.css";
+
+const defaultFont = Inter({
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -15,12 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <CustomClerkProvider>
       <TRPCProvider>
         <html lang="pt-BR">
-          <body>{children}</body>
+          <body className={defaultFont.className}>{children}</body>
         </html>
       </TRPCProvider>
-    </ClerkProvider>
+    </CustomClerkProvider>
   );
 }

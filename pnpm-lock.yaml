@@ -5,12 +5,18 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@clerk/localizations':
+    specifier: ^1.25.2
+    version: 1.25.2(react@18.2.0)
   '@clerk/nextjs':
     specifier: ^4.23.5
     version: 4.23.5(next@13.4.19)(react-dom@18.2.0)(react@18.2.0)
   '@prisma/client':
     specifier: ^5.3.1
     version: 5.3.1(prisma@5.3.1)
+  '@radix-ui/colors':
+    specifier: 3.0.0-rc.4
+    version: 3.0.0-rc.4
   '@t3-oss/env-nextjs':
     specifier: ^0.6.1
     version: 0.6.1(typescript@5.2.2)(zod@3.22.2)
@@ -152,6 +158,16 @@ packages:
       camelcase-keys: 6.2.2
       snakecase-keys: 3.2.1
       tslib: 2.4.1
+    dev: false
+
+  /@clerk/localizations@1.25.2(react@18.2.0):
+    resolution: {integrity: sha512-7Mt7ZDO8d3t14STdBevj765dhYYvACcZhvlg2gYUiR0WrE0i2pvRVitXp6Au9fJm3pJOfk7clCLZ+yZN7gFlkA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      '@clerk/types': 3.51.0
+      react: 18.2.0
     dev: false
 
   /@clerk/nextjs@4.23.5(next@13.4.19)(react-dom@18.2.0)(react@18.2.0):
@@ -437,6 +453,10 @@ packages:
   /@prisma/engines@5.3.1:
     resolution: {integrity: sha512-6QkILNyfeeN67BNEPEtkgh3Xo2tm6D7V+UhrkBbRHqKw9CTaz/vvTP/ROwYSP/3JT2MtIutZm/EnhxUiuOPVDA==}
     requiresBuild: true
+
+  /@radix-ui/colors@3.0.0-rc.4:
+    resolution: {integrity: sha512-dUG9WQCdjKPiiqbQsahUGmOuC+9kCltckQtej7hkVIQp56xirLaMsNrOs9xMYXnIbNqK/vZCmoEk+q1Nda+2AA==}
+    dev: false
 
   /@rushstack/eslint-patch@1.4.0:
     resolution: {integrity: sha512-cEjvTPU32OM9lUFegJagO0mRnIn+rbqrG89vV8/xLnLFX0DoR0r1oy5IlTga71Q7uT3Qus7qm7wgeiMT/+Irlg==}
