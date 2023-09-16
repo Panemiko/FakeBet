@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { createServerHelper } from "@/server/api/server-call";
 import { currentUser } from "@clerk/nextjs";
+import { PlayIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 export default async function AppHomePage() {
@@ -19,7 +20,10 @@ export default async function AppHomePage() {
       </div>
       <div className="mb-10">
         <Button asChild variant="secondaryLight" size="lg" className="w-full">
-          <Link href="/join">ENTRAR EM UMA PARTIDA</Link>
+          <Link href="/join">
+            <PlayIcon />
+            ENTRAR EM UMA PARTIDA
+          </Link>
         </Button>
       </div>
       <hr className="mb-14 border border-neutral-6" />
