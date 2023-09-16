@@ -8,6 +8,8 @@ export default authMiddleware({
       const signInUrl = new URL("/auth/sign-in", req.url);
       return NextResponse.redirect(signInUrl);
     }
+
+    return NextResponse.next();
   },
 });
 

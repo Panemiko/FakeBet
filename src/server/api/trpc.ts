@@ -6,7 +6,7 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from "@trpc/server";
+import { TRPCError, initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
@@ -16,6 +16,7 @@ import {
   type SignedInAuthObject,
   type SignedOutAuthObject,
 } from "@clerk/nextjs/dist/types/server";
+import { createServerHelper } from "./server-call";
 
 /**
  * 1. CONTEXT
@@ -87,18 +88,52 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  * "/src/server/api/routers" directory.
  */
 
-/**
- * This is how you create new routers and sub-routers in your tRPC API.
- *
- * @see https://trpc.io/docs/router
- */
+const playerExistsMiddleware = t.middleware(async ({ next, ctx }) => {
+  if (!ctx.auth.userId) {
+    return next({
+      ctx: {
+        auth: ctx.auth,
+      },
+    });
+  }
+
+  const player = await db.player.findUnique({
+    where: {
+      id: ctx.auth.userId,
+    },
+  });
+
+  if (!player) {
+    await db.player.create({
+      data: {
+        id: ctx.auth.userId,
+        currency: 0,
+      },
+    });
+  }
+
+  return next({
+    ctx: {
+      auth: ctx.auth,
+    },
+  });
+});
+
+const isAuthedMiddleware = t.middleware(({ next, ctx }) => {
+  if (!ctx.auth.userId) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  return next({
+    ctx: {
+      auth: ctx.auth,
+    },
+  });
+});
+
 export const createTRPCRouter = t.router;
 
-/**
- * Public (unauthenticated) procedure
- *
- * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
- * guarantee that a user querying is authorized, but you can still access user session data if they
- * are logged in.
- */
-export const publicProcedure = t.procedure;
+export const publicProcedure = t.procedure.use(playerExistsMiddleware);
+export const protectedProcedure = t.procedure
+  .use(playerExistsMiddleware)
+  .use(isAuthedMiddleware);
