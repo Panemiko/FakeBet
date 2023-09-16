@@ -36,4 +36,13 @@ export const playerRouter = createTRPCRouter({
 
     return await parsePlayer(player);
   }),
+  byCurrentUser: protectedProcedure.query(async ({ ctx }) => {
+    const player = await ctx.db.player.findUnique({
+      where: {
+        id: ctx.auth.userId,
+      },
+    });
+
+    return player!;
+  }),
 });
