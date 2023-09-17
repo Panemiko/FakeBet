@@ -12,9 +12,9 @@ datasource db {
 }
 
 model Room {
-    id     String   @id @default(uuid())
-    code   String   @unique
-    Player Player[]
+    id      String   @id @default(uuid())
+    code    String   @unique
+    players Player[]
 }
 
 model Player {

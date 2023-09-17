@@ -28,7 +28,7 @@ export const roomRouter = createTRPCRouter({
       });
 
       // Delete the room if there's just the player on it
-      if (currentRoom?.players.length == 1) {
+      if (currentRoom?.players?.length === 1) {
         await ctx.db.room.delete({
           where: {
             id: currentRoom.id,
