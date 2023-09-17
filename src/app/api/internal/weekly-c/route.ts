@@ -22,5 +22,3 @@ async function handler() {
 }
 
 export const POST = verifySignatureEdge(handler);
-
-export const runtime = "edge";
