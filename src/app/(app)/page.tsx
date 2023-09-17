@@ -1,8 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { JoinForm } from "@/components/join-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { createServerHelper } from "@/server/api/server-call";
 import { currentUser } from "@clerk/nextjs";
-import { PlayIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
 
 export default async function AppHomePage() {
   const server = createServerHelper();
@@ -18,16 +23,7 @@ export default async function AppHomePage() {
           <span className="font-bold text-neutral-12">{user?.username}</span>
         </span>
       </div>
-      <div className="mb-10">
-        <Button asChild variant="secondaryLight" size="lg" className="w-full">
-          <Link href="/join">
-            <PlayIcon />
-            ENTRAR EM UMA PARTIDA
-          </Link>
-        </Button>
-      </div>
-      <hr className="mb-14 border border-neutral-6" />
-      <div className="flex gap-3 rounded-lg bg-neutral-2 px-5 py-3">
+      <div className="mb-10 flex gap-3 rounded-lg bg-neutral-2 px-5 py-3">
         <div className="flex items-center justify-center gap-3">
           <span className="text-xl text-neutral-11">
             Código para jogo rápido
@@ -37,6 +33,15 @@ export default async function AppHomePage() {
           </span>
         </div>
       </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Entrar em sala</CardTitle>
+          <CardDescription>Insira o código da sala para entrar</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <JoinForm />
+        </CardContent>
+      </Card>
     </div>
   );
 }

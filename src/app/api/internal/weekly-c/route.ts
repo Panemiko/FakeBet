@@ -5,8 +5,11 @@ import { NextResponse } from "next/server";
 const CURRENCY_INCREMENT_BY_WEEK = 10000;
 
 async function handler() {
+  console.info("> Quering all players");
+
   const players = await db.player.findMany();
 
+  console.info("> Updating currencies");
   players.forEach((player) => {
     void db.player.update({
       where: {
@@ -17,6 +20,8 @@ async function handler() {
       },
     });
   });
+
+  console.info("> Updated successfully");
 
   return NextResponse.json({ message: "done" });
 }
