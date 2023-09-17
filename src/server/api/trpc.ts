@@ -107,7 +107,7 @@ const playerExistsMiddleware = t.middleware(async ({ next, ctx }) => {
     await db.player.create({
       data: {
         id: ctx.auth.userId,
-        currency: 0,
+        currency: 12000,
       },
     });
   }
