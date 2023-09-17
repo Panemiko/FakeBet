@@ -1,5 +1,6 @@
 import { createServerHelper } from "@/server/api/server-call";
 import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 import React from "react";
 
 export default async function AppLayout({
@@ -11,13 +12,16 @@ export default async function AppLayout({
   const player = await server.player.byCurrentUser();
 
   return (
-    <div className="bg-neutral-1 min-h-screen">
+    <div className="min-h-screen bg-neutral-1">
       <header className="flex items-center justify-between px-8 py-10">
-        <span className="text-primary-11 select-none text-2xl font-medium">
+        <Link
+          href="/"
+          className="select-none text-2xl font-medium text-primary-11"
+        >
           FakeBet
-        </span>
+        </Link>
         <div className="flex items-center gap-5">
-          <span className="text-neutral-12 font-medium">
+          <span className="font-medium text-neutral-12">
             {player.currency}
             <span className="text-neutral-11">c</span>
           </span>

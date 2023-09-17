@@ -44,7 +44,7 @@ export function JoinForm() {
     });
 
     if (room) {
-      router.push(`/room/${room.id}`);
+      router.push(`/room/${room.code}`);
     }
   }
 

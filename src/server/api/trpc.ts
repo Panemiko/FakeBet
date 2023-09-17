@@ -16,7 +16,6 @@ import {
   type SignedInAuthObject,
   type SignedOutAuthObject,
 } from "@clerk/nextjs/dist/types/server";
-import { createServerHelper } from "./server-call";
 
 /**
  * 1. CONTEXT
@@ -107,7 +106,7 @@ const playerExistsMiddleware = t.middleware(async ({ next, ctx }) => {
     await db.player.create({
       data: {
         id: ctx.auth.userId,
-        currency: 12000,
+        weekCurrency: 10000,
       },
     });
   }

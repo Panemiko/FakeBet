@@ -1,5 +1,5 @@
 import { db } from "@/server/db";
-import { verifySignatureEdge } from "@upstash/qstash/dist/nextjs";
+import { verifySignature } from "@upstash/qstash/dist/nextjs";
 import { NextResponse } from "next/server";
 
 const CURRENCY_INCREMENT_BY_WEEK = 10000;
@@ -16,7 +16,8 @@ async function handler() {
         id: player.id,
       },
       data: {
-        currency: player.currency + CURRENCY_INCREMENT_BY_WEEK,
+        weekCurrency: CURRENCY_INCREMENT_BY_WEEK,
+        currency: player.currency + player.weekCurrency,
       },
     });
   });
@@ -26,4 +27,4 @@ async function handler() {
   return NextResponse.json({ message: "done" });
 }
 
-export const POST = verifySignatureEdge(handler);
+export const POST = verifySignature(handler);

@@ -12,16 +12,47 @@ datasource db {
 }
 
 model Room {
-    id      String   @id @default(uuid())
-    code    String   @unique
-    players Player[]
+    id        String           @id @default(uuid())
+    createdAt DateTime         @default(now())
+    updatedAt DateTime         @updatedAt
+    code      String           @unique
+    entrances PlayerEntrance[]
+    bets      Bet[]
 }
 
 model Player {
-    id            String  @id
-    currency      Int     @default(0)
-    currentRoom   Room?   @relation(fields: [currentRoomId], references: [id])
-    currentRoomId String?
+    id           String           @id @default(uuid())
+    createdAt    DateTime         @default(now())
+    updatedAt    DateTime         @updatedAt
+    currency     Int              @default(0)
+    weekCurrency Int              @default(0)
+    entrances    PlayerEntrance[]
+    bets         Bet[]
+}
 
-    @@index([currentRoomId])
+model Bet {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    value     Int
+    room      Room     @relation(fields: [roomId], references: [id])
+    player    Player   @relation(fields: [playerId], references: [id])
+    playerId  String
+    roomId    String
+
+    @@index([roomId])
+    @@index([playerId])
+}
+
+model PlayerEntrance {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    room      Room     @relation(fields: [roomId], references: [id])
+    player    Player   @relation(fields: [playerId], references: [id])
+    playerId  String
+    roomId    String
+
+    @@index([roomId])
+    @@index([playerId])
 }
