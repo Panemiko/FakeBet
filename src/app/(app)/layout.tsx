@@ -3,7 +3,7 @@ import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 
-export default async function AppLayout({
+export default async function Layout({
   children,
 }: {
   children: React.ReactNode;

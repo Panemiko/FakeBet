@@ -10,7 +10,7 @@ import { createServerHelper } from "@/server/api/server-call";
 import { currentUser } from "@clerk/nextjs";
 import { RedirectOnPlayer } from "./redirect-on-player";
 
-export default async function AppHomePage() {
+export default async function Page() {
   const server = createServerHelper();
   const user = await currentUser();
 
